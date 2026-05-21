@@ -57,7 +57,7 @@ The dataset simulates real triage records from Mercer General Hospital's Emergen
 
 **Date:** Wednesday  
 **Status:** Complete  
-**Notebook:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)
+**Google Collab:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)
 
 #### What I found
 
@@ -122,7 +122,7 @@ assert df['Gender'].isnull().sum() == 0, "Unexpected NaNs in Gender after cleani
 
 **Date:** Thursday  
 **Status:** Complete  
-**Notebook:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)
+**Google Collab:** [`week0_triage_eda.ipynb`](week0_triage_eda_day2.ipynb)
 
 #### What I found
 
