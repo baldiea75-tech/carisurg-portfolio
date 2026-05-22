@@ -122,7 +122,7 @@ assert df['Gender'].isnull().sum() == 0, "Unexpected NaNs in Gender after cleani
 
 **Date:** Thursday  
 **Status:** Complete  
-**Google Collab:** [`week0_triage_eda.ipynb`](week0_triage_eda_day2.ipynb)
+**Google Collab:** [`week0_triage_eda_day2.ipynb`](week0_triage_eda_day2.ipynb)
 
 #### What I found
 
