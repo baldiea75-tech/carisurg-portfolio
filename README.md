@@ -60,7 +60,7 @@ The dataset simulates real triage records from Mercer General Hospital's Emergen
 ### Day 1 — Gender Column Cleaning
 
 **Date:** Wednesday  
-**Status:** ✅ Complete  
+**Status:** Complete  
 **Google Colab:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)
 
 #### What I found
@@ -126,7 +126,7 @@ assert df['Gender'].isnull().sum() == 0, "Unexpected NaNs in Gender after cleani
 ### Day 2 — Pulse Column Cleaning
 
 **Date:** Thursday  
-**Status:** ✅ Complete  
+**Status:** Complete  
 **Google Colab:** [`week0_triage_eda_day2.ipynb`](week0_triage_eda_day2.ipynb)
 
 #### What I found
@@ -202,7 +202,7 @@ Produced six clinically meaningful plots from the fully cleaned triage dataset. 
 
 **Clinical question:** Do fever and tachypnoea co-occur, and is this pattern more consistent with **sepsis** or **pneumonia**?
 
-Both fever (Temp > 38.0 °C) and tachypnoea (RR > 20 /min) are SIRS criteria — Systemic Inflammatory Response Syndrome. When a patient meets 3 or more SIRS criteria the working clinical diagnosis shifts toward **sepsis**, not a localised infection like pneumonia. Pneumonia would additionally require raised FiO2 (supplemental oxygen), indicating respiratory failure at the organ level.
+Both fever (Temp > 38.0 °C) and tachypnoea (RR > 20 /min) are SIRS criteria — Systemic Inflammatory Response Syndrome. When a patient meets 3 or more SIRS criteria the working clinical diagnosis shifts toward sepsis, not a localised infection like pneumonia. Pneumonia would additionally require raised FiO2 (supplemental oxygen), indicating respiratory failure at the organ level.
 
 The data was checked against both patterns:
 
