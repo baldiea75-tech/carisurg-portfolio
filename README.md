@@ -1,9 +1,9 @@
-# CariSurg MedTech Pathways — Week 0 Portfolio
+# CariSurg MedTech Pathways - Week 0 Portfolio
 
 **Programme:** CariSurg MedTech Pathways 2026  
 **Author:** Ashi Baldie
 
-**Dataset:** Emergency Triage Dataset — 2,205 patients · 11 columns
+**Dataset:** Emergency Triage Dataset - 2,205 patients · 11 columns
 
 ---
 
@@ -12,9 +12,9 @@
 - [About This Project](#about-this-project)
 - [Dataset Overview](#dataset-overview)
 - [Weekly Progress](#weekly-progress)
-  - [Day 1 — Gender Column Cleaning](#day-1--gender-column-cleaning)
-  - [Day 2 — Pulse Column Cleaning](#day-2--pulse-column-cleaning)
-  - [Day 3 — Data Visualisation](#day-3--data-visualisation)
+  - [ Day 1 - Gender Column Cleaning](#Day-1-Gender-Column-Cleaning)
+  - [Day 2 - Pulse Column Cleaning](#day-2-pulse-column-cleaning)
+  - [Day 3 - Data Visualisation](#day-3-data-visualisation)
 - [Repository Structure](#repository-structure)
 - [How to Run](#how-to-run)
 - [Programme Info](#programme-info)
@@ -57,7 +57,7 @@ The dataset simulates real triage records from Mercer General Hospital's Emergen
 
 ---
 
-### Day 1 — Gender Column Cleaning
+### Day 1 - Gender Column Cleaning
 
 **Date:** Wednesday  
 **Status:** Complete  
@@ -80,7 +80,7 @@ The `Gender` column contained **6 variants** of two values, caused by inconsiste
 
 Built a mapping dictionary standardising all 6 variants to binary integers (`1 = Male`, `0 = Female`), consistent with the Harvard dataset convention used in this programme.
 
-Used `.map()` instead of `.replace()` so that any unrecognised value would surface as `NaN` rather than being silently skipped — acting as a validation mechanism. Added an assertion to confirm only `{0, 1}` exist after cleaning.
+Used `.map()` instead of `.replace()` so that any unrecognised value would surface as `NaN` rather than being silently skipped - acting as a validation mechanism. Added an assertion to confirm only `{0, 1}` exist after cleaning.
 
 #### Improvements applied (from feedback)
 
@@ -123,7 +123,7 @@ assert df['Gender'].isnull().sum() == 0, "Unexpected NaNs in Gender after cleani
 
 ---
 
-### Day 2 — Pulse Column Cleaning
+### Day 2 - Pulse Column Cleaning
 
 **Date:** Thursday  
 **Status:** Complete  
@@ -139,9 +139,9 @@ The `pulse` (heart rate) column was stored as `object` (string) dtype despite be
 
 #### Approach
 
-1. Converted to numeric with `errors='coerce'` — non-numeric text → NaN
+1. Converted to numeric with `errors='coerce'` - non-numeric text → NaN
 2. Flagged and replaced physiologically impossible values (< 20 or > 250) with NaN
-3. Imputed all NaNs using the **median (90.0 bpm)** — chosen over mean because heart rate data is right-skewed with outliers
+3. Imputed all NaNs using the **median (90.0 bpm)** - chosen over mean because heart rate data is right-skewed with outliers
 4. Companion-cleaned `SBP` in the same step to enable the composite shock index flag
 5. Wrapped each stage in a reusable function with inline clinical justification
 
@@ -149,9 +149,9 @@ The `pulse` (heart rate) column was stored as `object` (string) dtype despite be
 
 Heart rate is critical for detecting:
 
-- **Tachycardia (> 100 bpm)** — fever, pain, blood loss, anxiety
-- **Shock index** — when combined with SBP < 90: indicates haemodynamic compromise
-- **Bradycardia (< 60 bpm)** — heart block, medication effect
+- **Tachycardia (> 100 bpm)** - fever, pain, blood loss, anxiety
+- **Shock index** - when combined with SBP < 90: indicates haemodynamic compromise
+- **Bradycardia (< 60 bpm)** - heart block, medication effect
 
 #### Composite Shock Flag
 
@@ -176,7 +176,7 @@ Heart rate is critical for detecting:
 
 ---
 
-### Day 3 — Data Visualisation
+### Day 3 - Data Visualisation
 
 **Date:** Friday  
 **Status:** Complete  
@@ -222,6 +222,66 @@ Reference lines mark the SIRS fever threshold (38.0 °C) and tachypnoea threshol
 
 ![Temperature vs Respiratory Rate](RRvsTemperature.png)
 
+---
+
+### Histograms — Temperature & Respiratory Rate
+
+#### Histogram 1 — Body Temperature Distribution
+
+**Clinical question:** What proportion of triage patients present with fever or hypothermia - and how severe is the fever burden?
+
+Temperature is a direct SIRS criterion and one of the first vitals recorded at triage. Fever (> 38.0 °C) triggers an infection workup; hypothermia (< 36.0 °C) is an equally serious sign of septic shock or environmental exposure. Knowing the distribution tells the ED team what proportion of their workload is infection-related on any given shift.
+
+#### Reference lines
+
+| Line | Threshold | Clinical meaning |
+|------|-----------|-----------------|
+| Purple dashed | 36.0 °C | Hypothermia lower limit |
+| Amber dashed | 37.5 °C | Low-grade fever / pyrexia start |
+| Pink solid | 38.0 °C | Fever — SIRS criterion |
+| Red dotted | 39.0 °C | High fever, aggressive workup warranted |
+
+#### Result
+
+| Zone | Threshold | Patients flagged |
+|------|-----------|-----------------|
+| Hypothermia | < 36.0 °C | 22 (1.0%) |
+| Low-grade fever | > 37.5 °C | 475 (21.5%) |
+| Fever — SIRS | > 38.0 °C | 282 (12.8%) |
+| High fever | > 39.0 °C | 86 (3.9%) |
+
+The majority of patients present with a normal temperature (median 37.0 °C), but the distribution is right-skewed — 12.8% meet the SIRS fever criterion, consistent with a high infection burden in this ED population.
+
+![Temperature Histogram](plots/temp_histogram.png)
+
+---
+
+#### Histogram 2 — Respiratory Rate Distribution
+
+**Clinical question:** What proportion of patients present with abnormal breathing rates, and how many are in the severe range?
+
+Respiratory rate is one of the most sensitive early warning signs of deterioration and is a direct SIRS criterion. Normal adult RR is 12–20 breaths/min. Tachypnoea (> 20 /min) indicates the body is compensating for hypoxia, pain, acidosis, or systemic infection. Severe tachypnoea (> 30 /min) is a red flag for impending respiratory failure and triggers immediate clinical review.
+
+#### Reference lines
+
+| Line | Threshold | Clinical meaning |
+|------|-----------|-----------------|
+| Purple dashed | 12 /min | Bradypnoea (lower limit of normal) |
+| Amber dashed | 20 /min | Tachypnoea (SIRS criterion) |
+| Pink solid | 30 /min | Severe tachypnoea (urgent review) |
+
+#### Result
+
+| Zone | Threshold | Patients flagged |
+|------|-----------|-----------------|
+| Bradypnoea | < 12 /min | 0 (0.0%) |
+| Normal | 12–20 /min | 1,629 (73.9%) |
+| Tachypnoea | > 20 /min | 576 (26.1%) |
+| Severe tachypnoea | > 30 /min | 131 (5.9%) |
+
+The median RR is 18 /min (within the normal range) but over 1 in 4 patients arrived with elevated respiratory rates. 131 patients (5.9%) were in the severe zone, consistent with the high SIRS burden identified in the Temperature vs RR scatter plot. No bradypnoeic patients were present after cleaning.
+
+![Respiratory Rate Histogram](plots/rr_histogram.png)
 ---
 
 ## Repository Structure
