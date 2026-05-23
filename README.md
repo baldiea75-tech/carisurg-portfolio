@@ -314,7 +314,7 @@ carisurg-portfolio/
 2. Upload `EmergencyTriageDataset_Reduced_Dirty.csv` to your Google Drive
 3. Open the relevant notebook for the day you want to run
 4. Select **Runtime → Restart and run all**
-5. The file auto-locates from Drive — no manual path editing needed
+5. The file auto-locates from Drive - no manual path editing needed
 
 **Dependencies** (all pre-installed in Colab):  
 `pandas` · `numpy` · `matplotlib`
