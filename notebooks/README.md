@@ -10,3 +10,14 @@ This folder contains all Jupyter notebooks for the CariSurg MedTech Pathways pro
 | week0_triage_eda_day2.ipynb | Week 0 | Day 2 pulse column cleaning |
 | week0_triage_eda_day3.ipynb | Week 0 | Day 3 data visualisation |
 | Week_1_Final_Deliverable.ipynb | Week 1 | Full Week 1 pipeline |
+
+# Notebooks
+
+## week0_triage_eda.ipynb
+Initial exploratory analysis of the triage dataset.
+
+## week0_triage_eda_day2.ipynb
+Additional data cleaning and feature exploration.
+
+## week0_triage_eda_day3.ipynb
+Final exploratory analysis and visualization work.
