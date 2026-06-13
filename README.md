@@ -26,7 +26,7 @@
 
 ## About This Project
 
-This repository documents my Week 0 work for the CariSurg MedTech Pathways Programme. The goal is to perform exploratory data analysis (EDA) and clinical data cleaning on a dirty emergency triage dataset, identify at-risk patients using rule-based logic, and communicate findings clearly.
+This repository documents my Week 0 work for the CariSurg MedTech Pathways Programme. The goal is to perform exploratory data analysis (EDA) and clinical data cleaning on a dirty emergency triage dataset, identify at-risk patients using rule-based logic and communicate findings clearly.
 
 The dataset simulates real triage records from Mercer General Hospital's Emergency Department, with intentionally introduced data quality issues reflecting what real clinical data looks like in practice.
 
@@ -64,7 +64,7 @@ The dataset simulates real triage records from Mercer General Hospital's Emergen
 
 **Date:** Wednesday  
 **Status:** Complete  
-**Google Colab:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)
+**Google Colab:** [`week0_triage_eda.ipynb`](week0_triage_eda.ipynb)  
 
 #### What I found
 
@@ -184,7 +184,6 @@ Heart rate is critical for detecting:
 **Date:** Friday  
 **Status:** Complete  
 **Google Colab:** [`week0_triage_eda_day3.ipynb`](week0_triage_eda_day3.ipynb)
-
 #### Overview
 
 Produced six clinically meaningful plots from the fully cleaned triage dataset. Every plot answers a specific clinical question. Cleaning from Days 1 and 2 was consolidated into a single reusable `apply_all_cleaning()` function and called once before any plotting. A seventh custom plot was added as the open-ended exercise.
@@ -244,13 +243,13 @@ Over 1 in 4 patients arrived with an elevated respiratory rate, consistent with 
 
 **Date:** 23 May 2026  
 **Status:** Complete  
-**Document:** [`RR_Clinical_Write_Up.pdf`](RR_Clincal_Write_Up.pdf)
+**Document:** [`RR_Clincal_Write_Up.pdf`](RR_Clincal_Write_Up.pdf)
 
 #### Summary
 
 Respiratory Rate (RR) is the number of breaths a person takes per minute, measured by counting chest wall movements over 60 seconds. It reflects the body's effort to maintain adequate gas exchange and acid-base balance, making it sensitive to disruptions across multiple organ systems, not just the lungs (Porter and Graham, 2025). The normal range for a resting adult is 12 to 20 breaths per minute.
 
-A rate below 12 breaths per minute is termed bradypnea and is associated with opioid or sedative use, traumatic brain injury, or alcohol intoxication. A rate above 20 breaths per minute is termed tachypnea and may indicate pneumonia, sepsis, pulmonary embolism, metabolic acidosis, or cardiac dysfunction (Porter and Graham, 2025).
+A rate below 12 breaths per minute is termed bradypnea and is associated with opioid or sedative use, traumatic brain injury or alcohol intoxication. A rate above 20 breaths per minute is termed tachypnea and may indicate pneumonia, sepsis, pulmonary embolism, metabolic acidosis or cardiac dysfunction (Porter and Graham, 2025).
 
 #### Clinical importance at triage
 
@@ -278,7 +277,7 @@ Porter, R., and Graham, D. D. (2025). Abnormal Respirations. In *StatPearls*. St
 
 **Date:** 24 May 2026  
 **Status:** Complete  
-**Document:** [`SpO2_Unconsidered_Metrics.pdf`](SpO2_-_Unconsidered_Metrics.pdf)
+**Document:** [`SpO2_-_Unconsidered_Metrics.pdf`](SpO2_-_Unconsidered_Metrics.pdf)
 
 #### Summary
 
@@ -323,10 +322,10 @@ The system processes one patient row at a time through seven sequential steps:
 1. **Receive** raw data from the electronic health record or nurse tablet entry
 2. **Validate and clean** each input using the same range filters and median imputation established in Days 1 and 2. A `missing_flag` is raised if any critical vital is imputed, warning the clinician that the output confidence is reduced (Miles et al., 2020)
 3. **Calculate NEWS2 score** by allocating 0-3 points per vital sign based on deviation from normal, plus 2 points for supplemental oxygen (RCP, 2017)
-4. **Run SIRS sepsis flag** as a secondary safety layer alongside NEWS2, checking for fever, tachycardia, and tachypnoea. Research shows this combination improves sepsis sensitivity at triage (Dewitte et al., 2022)
+4. **Run SIRS sepsis flag** as a secondary safety layer alongside NEWS2, checking for fever, tachycardia and tachypnoea. Research shows this combination improves sepsis sensitivity at triage (Dewitte et al., 2022)
 5. **Check composite shock flag** using the pattern identified in Day 2: SBP below 90 mmHg and heart rate above 110 bpm
 6. **Assign risk level** combining all three outputs. Any positive safety flag escalates the risk category upward regardless of the NEWS2 score alone
-7. **Output to triage dashboard** with Patient ID, NEWS2 score, SIRS criteria count, shock flag, final risk level, reason, and a data completeness indicator
+7. **Output to triage dashboard** with Patient ID, NEWS2 score, SIRS criteria count, shock flag, final risk level, reason and a data completeness indicator
 
 #### Risk categories
 
@@ -341,7 +340,7 @@ The system processes one patient row at a time through seven sequential steps:
 
 #### Limitations
 
-This system is decision support only and cannot replace a nurse's direct assessment (Tschoellitsch et al., 2023). The dataset also lacks SpO2, white blood cell count, and chief complaint, all of which would be required for a production-ready version (as identified in Day 5).
+This system is decision support only and cannot replace a nurse's direct assessment (Tschoellitsch et al., 2023). The dataset also lacks SpO2, white blood cell count and chief complaint, all of which would be required for a production-ready version (as identified in Day 5).
 
 #### References
 
@@ -366,6 +365,7 @@ carisurg-portfolio/
 |-- week0_triage_eda.ipynb                        <- Day 1 notebook
 |-- week0_triage_eda_day2.ipynb                   <- Day 2 notebook
 |-- week0_triage_eda_day3.ipynb                   <- Day 3 notebook
+|-- Week_1_Final_Deliverable.ipynb                <- Week 1 final deliverable
 |-- EmergencyTriageDataset_Reduced_Dirty.csv      <- raw dataset
 |-- RR_Clincal_Write_Up.pdf                       <- Day 4 clinical write-up
 |-- SpO2_-_Unconsidered_Metrics.pdf               <- Day 5 unconsidered metrics
@@ -405,4 +405,4 @@ carisurg-portfolio/
 
 ---
 
-*Last updated: Day 7 - Tuesday 26 May 2026*
+*Last updated:  Saturday 13 June 2026*
