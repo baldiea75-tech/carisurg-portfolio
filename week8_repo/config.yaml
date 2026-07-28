@@ -1,0 +1,55 @@
+# CariSurg Triage Pipeline Configuration
+# One file drives training. Change a setting here, not in the code.
+
+seed: 42
+
+data:
+  raw_path: "data/yaleemmlc_admissionprediction_triage.csv"
+  target: "esi"
+
+split:
+  test_size: 0.2
+  stratify: true
+
+# Both models below are pinned as of Week 8, following the Week 7
+# cost-benefit memo and the wider hyperparameter search that followed it.
+# Neither random forest configuration tested beat logistic regression on
+# both accuracy and recall at once, so both are kept for different
+# deployment priorities rather than picking a single winner.
+final_models: ["logistic_regression", "random_forest_high_recall"]
+
+# default_model is what scripts/train.py runs if no --model flag is given.
+default_model: "logistic_regression"
+
+models:
+  logistic_regression:
+    # Frozen. Week 6 baseline, confirmed the strongest model on overall
+    # accuracy and the easiest to explain to a clinician in under a minute.
+    # Ship this by default.
+    max_iter: 1000
+
+  decision_tree:
+    # Frozen. Week 6 baseline. Kept for comparison only, not shipped:
+    # it never predicts ESI 1, 4 or 5 on the test set.
+    max_depth: 5
+
+  random_forest:
+    # Frozen. Week 7 default-settings complex model. Kept for the audit
+    # trail only, not shipped: it also never predicts ESI 1.
+    n_estimators: 200
+    max_depth: 10
+
+  random_forest_high_recall:
+    # Frozen. The Week 7 wider search's best trade-off. Not the default,
+    # but pinned as a reserve option for deployments where missing an
+    # ESI 1 patient is judged worse than a high false alarm rate.
+    n_estimators: 150
+    max_depth: 8
+    class_weight: "balanced"
+
+# Off by default. See src/features.py:add_clinical_features(). Turning
+# this on changes the feature set and will not reproduce the frozen
+# Week 6/7 numbers above; it is left here as a documented, opt-in
+# experiment rather than folded silently into the default pipeline.
+engineered_features:
+  enabled: false

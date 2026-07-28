@@ -1,0 +1,11 @@
+# Exact versions this pipeline was verified against.
+# "Works on my machine" is not a handover: if your environment has
+# different versions installed, run `pip install -r requirements.txt`
+# to match this list before reporting a numbers mismatch.
+
+pandas==3.0.2
+numpy==2.4.4
+scikit-learn==1.8.0
+PyYAML==6.0.3
+pytest==9.1.1
+matplotlib==3.10.8
